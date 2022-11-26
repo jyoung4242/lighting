@@ -1,0 +1,30 @@
+/*style.css*/
+
+body {
+  background-color: rgb(43, 40, 40);
+}
+
+.content {
+}
+
+.ship {
+  position: fixed;
+  top: 100px;
+  left: 10px;
+  width: 50px;
+  height: 50px;
+  background-image: url("./assets/player1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.asteroid {
+  position: fixed;
+  top: 100px;
+  left: 100px;
+  width: 80px;
+  height: 80px;
+  background-image: url("./assets/asteroid.png");
+  background-repeat: no-repeat;
+  background-size: 640px 640px;
+}
