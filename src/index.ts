@@ -5,12 +5,28 @@ import { version } from "html-webpack-plugin";
 
 const template = `
 <div class="content">
-    <div id="ship" class="ship"></div>
-    <div id="roid" class="asteroid"></div>
+    <div id="\${ship.id}" class="ship" style="translate: \${ship.position.x}px \${ship.position.y}px; rotate: \${ship.orientation}deg"></div>
+    <div id="\${roid.id}" class="asteroid" style="translate: \${roid.position.x}px \${roid.position.y}px; rotate: \${roid.orientation}deg background-position: \${roid.cssPosition}"></div>
 </div>
 `;
 
-const model = {};
+const model = {
+  ship: {
+    id: "ship",
+    element: document.getElementById("ship"),
+    position: new Vector(100, 10),
+    orientation: 0,
+    entity: undefined as any,
+  },
+  roid: {
+    id: "roid",
+    element: document.getElementById("roid"),
+    position: new Vector(100, 100),
+    orientation: 0,
+    entity: undefined as any,
+    cssPosition: "0px 0px",
+  },
+};
 let viewport: HTMLElement;
 
 UI.create(document.body, template, model);
@@ -21,41 +37,27 @@ Lighting.initialize(viewport);
 
 let light = Lighting.addLight({
   id: "white",
-  position: new Vector(800, 200),
+  position: new Vector(600, 200),
   radius: 1000,
   color: "white",
   viewport: viewport,
 });
 
-let ship = {
-  element: document.getElementById("ship"),
-  position: new Vector(100, 10),
-  orientation: 0,
-  enity: undefined as any,
-};
-
-let roid = {
-  element: document.getElementById("roid"),
-  position: new Vector(100, 100),
-  orientation: 0,
-  enity: undefined as any,
-};
-
-ship.enity = Lighting.addEntities([
+model.ship.entity = Lighting.addEntities([
   {
     id: "ship",
-    position: ship.position,
-    orientation: ship.orientation,
+    position: model.ship.position,
+    orientation: model.ship.orientation,
     size: new Vector(50, 50),
     normalMap: "./assets/playernormal.png",
   },
 ]);
 
-roid.enity = Lighting.addEntities([
+model.roid.entity = Lighting.addEntities([
   {
     id: "roid",
-    position: roid.position,
-    orientation: roid.orientation,
+    position: model.roid.position,
+    orientation: model.roid.orientation,
     size: new Vector(80, 80),
     normalMap: "./assets/asteroid normal.png",
   },
